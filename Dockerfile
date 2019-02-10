@@ -1,17 +1,21 @@
 FROM ubuntu:18.04
 
-RUN apt-get update \
-	&& apt-get install -y openssh-server nano bash-completion apt-utils software-properties-common
-RUN mkdir /var/run/sshd
+WORKDIR /
 
-RUN echo 'root:root' |chpasswd
-RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
-RUN mkdir /root/.ssh
-RUN touch /root/.ssh/authorized_keys
+RUN apt-get update -qq \
+	&& apt-get install -y -qq \
+		apt-utils openssh-server nano bash-completion software-properties-common \
+	&& apt-get clean -q \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN mkdir /var/run/sshd \
+	&& echo 'root:root' |chpasswd \
+	&& sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
+	&& sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
+	&& mkdir /root/.ssh \
+	&& touch /root/.ssh/authorized_keys
+
+COPY files /
 
 EXPOSE 22
-
-CMD    ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT [ "/startup.sh" ]
