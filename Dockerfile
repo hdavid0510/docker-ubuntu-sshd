@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
 WORKDIR /
+COPY files /
 
 RUN apt-get update -qq \
 	&& apt-get install -y -qq \
@@ -15,7 +16,7 @@ RUN mkdir /var/run/sshd \
 	&& mkdir /root/.ssh \
 	&& touch /root/.ssh/authorized_keys
 
-COPY files /
 
 EXPOSE 22
-ENTRYPOINT [ "/startup.sh" ]
+CMD [ "/startup.sh" ]
+ENTRYPOINT [ "/bin/bash" ]

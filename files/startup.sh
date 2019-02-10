@@ -3,6 +3,3 @@
 
 # SSH server run
 exec /usr/sbin/sshd -D
-
-# Keeps this script running
-/bin/bash
