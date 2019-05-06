@@ -5,7 +5,7 @@ COPY files /
 
 RUN apt-get update -qq \
 	&& apt-get install -y -qq \
-		apt-utils openssh-server nano bash-completion software-properties-common \
+		apt-utils openssh-server nano bash-completion software-properties-common sudo \
 	&& apt-get clean -q \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
