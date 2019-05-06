@@ -18,5 +18,5 @@ RUN mkdir /var/run/sshd \
 
 
 EXPOSE 22
-CMD [ "/startup.sh" ]
-ENTRYPOINT [ "/bin/bash" ]
+CMD [ "/usr/sbin/sshd", "-D" ]
+ENTRYPOINT [ "/bin/bash", "/startup.sh" ]
