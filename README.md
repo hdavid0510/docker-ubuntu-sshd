@@ -1,5 +1,5 @@
 # ubuntu-sshd
-[![](https://img.shields.io/docker/pulls/hdavid0510/ubuntu-sshd?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd) [![](https://img.shields.io/docker/cloud/build/hdavid0510/ubuntu-sshd?style=flat-square)]() [![](https://img.shields.io/github/issues/hdavid0510/docker-ubuntu-sshd?style=flat-square)](https://github.com/hdavid0510/docker-ubuntu-sshd/issues)  
+[![](https://img.shields.io/docker/pulls/hdavid0510/ubuntu-sshd?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd) [![](https://img.shields.io/github/issues/hdavid0510/docker-ubuntu-sshd?style=flat-square)](https://github.com/hdavid0510/docker-ubuntu-sshd/issues)  
 OpenSSH server daemon docker on top of Ubuntu official image.  
 Essential packages such as `nano`, `bash-completion`, etc. are preinstalled.
 
