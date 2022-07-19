@@ -8,12 +8,11 @@ pipeline{
 	}
 
 	stages {
-
 		stage('Build') {
 			steps {
 				script {
 					docker.image('ubuntu:22.04').inside("""--entrypoint=''""") {
-							def buildingimage = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+						buildingimage = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
 					}
 				}
 			}
