@@ -12,8 +12,8 @@ pipeline{
 		stage('Build') {
 			steps {
 				script {
-					docker.image('ubuntu:'+TAG).inside("""--entrypoint=''""") {
-							def image = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+					docker.image('ubuntu:22.04').inside("""--entrypoint=''""") {
+							def buildingimage = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
 					}
 				}
 			}
@@ -23,7 +23,7 @@ pipeline{
 			steps {
 				script {
 					docker.withRegistry('', REGISTRY_CREDENTIALS){
-						image.push(TAG)
+						buildingimage.push(TAG)
 					}
 				}
 			}
