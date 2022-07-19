@@ -10,20 +10,20 @@ pipeline{
 	}
 
 	stages {
-
 		stage('Build') {
 			steps {
 				script {
-					def image = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+					docker.image('ubuntu:18.04').inside("""--entrypoint=''""") {
+						buildingimage = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+					}
 				}
 			}
 		}
-
 		stage('Push') {
 			steps {
 				script {
 					docker.withRegistry('', REGISTRY_CREDENTIALS){
-						image.push(TAG)
+						buildingimage.push(TAG)
 					}
 				}
 			}
