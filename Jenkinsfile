@@ -17,7 +17,6 @@ pipeline{
 				}
 			}
 		}
-
 		stage('Push') {
 			steps {
 				script {
