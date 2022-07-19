@@ -1,7 +1,5 @@
 pipeline{
-	agent{
-		dockerfile true
-	}
+	agent any
 
 	environment {
 		REGISTRY="hdavid0510/ubuntu-sshd"
