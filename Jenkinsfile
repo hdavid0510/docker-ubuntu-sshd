@@ -4,8 +4,6 @@ pipeline{
 	environment {
 		REGISTRY="hdavid0510/ubuntu-sshd"
 		REGISTRY_CREDENTIALS='dockerhub-credential'
-		TAG="latest"
-		DOCKERIMAGE=''
 	}
 
 	stages {
@@ -13,7 +11,9 @@ pipeline{
 		stage('Build') {
 			steps {
 				script {
-					DOCKERIMAGE = docker.build REGISTRY + ":" + TAG
+					def imagebionic = docker.build(REGISTRY + ":bionic", "-f Dockerfile.bionic ./")
+					def imagefocal = docker.build(REGISTRY + ":focal", "-f Dockerfile.focal ./")
+					def imagejammy = docker.build(REGISTRY + ":jammy", "-f Dockerfile.jammy ./")
 				}
 			}
 		}
@@ -21,8 +21,11 @@ pipeline{
 		stage('Push') {
 			steps {
 				script {
-					docker.withRegistry( '', REGISTRY_CREDENTIALS ){
-						DOCKERIMAGE.push()
+					docker.withRegistry('', REGISTRY_CREDENTIALS ){
+						imagebionic.push('bionic')
+						imagefocal.push('focal')
+						imagejammy.push('jammy')
+						imagejammy.push('latest')
 					}
 				}
 			}
@@ -32,7 +35,10 @@ pipeline{
 
 	post {
 		always {
-			sh "docker rmi $REGISTRY:$TAG"
+			sh "docker rmi $REGISTRY:latest"
+			sh "docker rmi $REGISTRY:bionic"
+			sh "docker rmi $REGISTRY:jammy"
+			sh "docker rmi $REGISTRY:focal"
 		}
 	}
 }
