@@ -1,7 +1,5 @@
 pipeline{
-	agent{
-		dockerfile true
-	}
+	agent any
 
 	environment {
 		REGISTRY="hdavid0510/ubuntu-sshd"
@@ -14,7 +12,9 @@ pipeline{
 		stage('Build') {
 			steps {
 				script {
-					def image = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+					docker.image('ubuntu:'+TAG).inside("""--entrypoint=''""") {
+							def image = docker.build(REGISTRY+":"+TAG, "-f Dockerfile ./")
+					}
 				}
 			}
 		}
