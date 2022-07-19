@@ -2,7 +2,7 @@ pipeline{
 	agent any
 
 	environment {
-		REGISTRY="hdavid0510/novnc"
+		REGISTRY="hdavid0510/ubuntu-sshd"
 		REGISTRY_CREDENTIALS='dockerhub-credential'
 		TAG="latest"
 		DOCKERIMAGE=''
