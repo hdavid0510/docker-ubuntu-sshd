@@ -24,14 +24,6 @@ pipeline{
 				sh 'docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x,linux/386 -t $IMAGE_NAME:$IMAGE_TAG .'
 			}
 		}
-		stage('Cleanup') {
-			steps {
-				echo 'Removing image built.'
-				
-				// keep intermediate images as cache, only delete the final image
-				sh 'docker rmi $IMAGE_NAME:$IMAGE_TAG'
-			}
-		}
 	}
 	post {
 		always {
