@@ -1,11 +1,11 @@
-FROM ubuntu:18.04
+FROM --platform=$TARGETPLATFORM ubuntu:18.04
 
 WORKDIR /
 COPY files /
 
 RUN apt-get update -qq \
 	&& apt-get install -y -qq \
-		apt-utils openssh-server nano bash-completion software-properties-common sudo \
+		apt-utils openssh-server nano bash-completion software-properties-common sudo curl \
 	&& apt-get clean -q \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 	&& mkdir /var/run/sshd \
@@ -14,7 +14,6 @@ RUN apt-get update -qq \
 	&& sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config \
 	&& mkdir /root/.ssh \
 	&& touch /root/.ssh/authorized_keys
-
 
 EXPOSE 22
 CMD [ "/usr/sbin/sshd", "-D" ]

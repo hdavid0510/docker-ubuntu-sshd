@@ -1,5 +1,4 @@
 #!/bin/bash
-# Script runs on docker initialization
 
-# SSH server run
+# Begin sshd server
 exec /usr/sbin/sshd -D
