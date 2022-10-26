@@ -15,6 +15,15 @@ RUN apt-get update -qq \
 	&& mkdir /root/.ssh \
 	&& touch /root/.ssh/authorized_keys
 
+# non-root user
+RUN groupadd --gid $USER_GID $USERNAME \
+	&& useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+	&& apt-get update \
+	&& apt-get install -y sudo \
+	&& echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+	&& chmod 0440 /etc/sudoers.d/$USERNAME
+USER $USERNAME
+
 EXPOSE 22
 CMD [ "/usr/sbin/sshd", "-D" ]
 ENTRYPOINT [ "/bin/bash", "/startup.sh" ]

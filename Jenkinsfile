@@ -4,7 +4,7 @@ pipeline{
 	environment {
 		IMAGE_NAME="hdavid0510/ubuntu-sshd"
 		REGISTRY_CREDENTIALS=credentials('dockerhub-credential')
-		IMAGE_TAG='focal'
+		IMAGE_TAG='dev-nonroot'
 	}
 
 	stages {
