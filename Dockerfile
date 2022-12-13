@@ -13,19 +13,21 @@ RUN		sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list \
 	&&	mkdir /var/run/sshd \
 	&&	echo 'root:root' |chpasswd
 
-# Cron setting
-RUN		echo "*/5 * * * * /restart.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/restart-cron \
-	# Give the necessary rights to the user to run the cron
-	&&	crontab -u $USERNAME /etc/cron.d/restart-cron \
-	&&	chmod u+s /usr/sbin/cron
-
-# non-root user
+# Create non-root user
 RUN		groupadd --gid $USER_GID $USERNAME \
 	&&	useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
 	&&	apt-get update \
 	&&	apt-get install -y sudo \
 	&&	echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
 	&&	chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Cron setting
+RUN		echo "*/5 * * * * /restart.sh > /proc/1/fd/1 2>&1" >> /etc/cron.d/restart-cron \
+	# Give the necessary rights to the user to run the cron
+	&&	crontab -u $USERNAME /etc/cron.d/restart-cron \
+	&&	chmod u+s /usr/sbin/cron
+
+# Use on-root user
 USER $USERNAME
 
 ENTRYPOINT [ "/bin/bash", "/startup.sh" ]
