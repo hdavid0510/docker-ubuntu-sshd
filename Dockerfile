@@ -1,8 +1,8 @@
 FROM --platform=$TARGETPLATFORM ubuntu:20.04
 
 ENV USER_UID 1027
-ENV USER_GID 100
-ENV USERNAME user
+ENV USER_GID 1000
+ENV USERNAME nonrootuser
 
 WORKDIR /
 COPY files /
@@ -18,8 +18,8 @@ RUN		sed -i 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list \
 	&&	echo 'root:root' |chpasswd
 
 # Create non-root user
-RUN		groupadd --gid $USER_GID $USERNAME \
-	&&	useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+RUN		groupadd -f --gid $USER_GID $USERNAME \
+	&&	useradd -f --uid $USER_UID --gid $USER_GID -m $USERNAME \
 	&&	apt-get update \
 	&&	apt-get install -y sudo \
 	&&	echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
