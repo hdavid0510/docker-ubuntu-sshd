@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Start cron"
 cron
 echo "cron started"
