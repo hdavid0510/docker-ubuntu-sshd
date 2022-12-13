@@ -21,7 +21,8 @@ pipeline{
 			steps {
 				echo 'Building image and pushing to DockerHub.'
 
-				sh 'docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x,linux/riscv64 -t $IMAGE_NAME:$IMAGE_TAG .'
+				//sh 'docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x,linux/riscv64 -t $IMAGE_NAME:$IMAGE_TAG .'
+				sh 'docker buildx build --push --platform linux/amd64 -t $IMAGE_NAME:$IMAGE_TAG .'
 			}
 		}
 	}
