@@ -10,11 +10,10 @@ COPY files /
 
 # APT Mirror
 RUN		apt-get -qq update \
-	&&	apt-get -qqy -o=Dpkg::Use-Pty=0 install apt-utils nano bash-completion software-properties-common sudo curl cron \
+	&&	apt-get -qqy -o=Dpkg::Use-Pty=0 install apt-utils nano bash-completion software-properties-common curl cron \
 	&&	apt-get -qq clean \
 	&&	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-	&&	mkdir /var/run/sshd \
-	&&	echo 'root:root' |chpasswd
+	&&	mkdir /var/run/sshd
 
 # Create non-root user
 RUN		groupadd -f --gid $USER_GID $USERNAME \
@@ -24,7 +23,7 @@ RUN		groupadd -f --gid $USER_GID $USERNAME \
 RUN		crontab -u $USERNAME /etc/cron.d/restart-cron \
 	&&	chmod u+s /usr/sbin/cron
 
-# Use on-root user
+# Use non-root user
 USER $USERNAME
 
 ENTRYPOINT [ "/bin/bash", "/entrypoint.sh" ]
