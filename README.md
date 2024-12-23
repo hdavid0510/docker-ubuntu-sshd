@@ -11,6 +11,10 @@ Essential packages such as `nano`, `bash-completion` are available out-of-the-bo
 [![](https://img.shields.io/docker/v/hdavid0510/ubuntu-sshd/latest?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd) [![](https://img.shields.io/docker/image-size/hdavid0510/ubuntu-sshd/latest?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd)  
 Built from `master` branch
 
+### noble  
+[![](https://img.shields.io/docker/v/hdavid0510/ubuntu-sshd/noble?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd) [![](https://img.shields.io/docker/image-size/hdavid0510/ubuntu-sshd/noble?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd)  
+Ubuntu 24.04
+
 ### jammy  
 [![](https://img.shields.io/docker/v/hdavid0510/ubuntu-sshd/jammy?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd) [![](https://img.shields.io/docker/image-size/hdavid0510/ubuntu-sshd/jammy?style=flat-square)](https://hub.docker.com/r/hdavid0510/ubuntu-sshd)  
 Ubuntu 22.04
