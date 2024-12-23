@@ -2,7 +2,7 @@ FROM --platform=$TARGETPLATFORM ubuntu:24.04
 
 ENV USER_UID 1080
 ENV USER_GID 1000
-ENV USERNAME nonrootuser
+ENV USERNAME ubuntu
 
 WORKDIR /
 COPY files /
