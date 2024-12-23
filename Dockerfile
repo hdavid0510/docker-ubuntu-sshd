@@ -16,6 +16,10 @@ RUN		apt-get -qq update \
 	&&	mkdir /var/run/sshd \
 	&&	echo 'root:root' |chpasswd
 
+# Create non-root user
+RUN		groupadd -f --gid $USER_GID $USERNAME \
+	&&	useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+
 # Cron setting, Give the necessary rights to the user to run the cron
 RUN		crontab -u $USERNAME /etc/cron.d/restart-cron \
 	&&	chmod u+s /usr/sbin/cron
