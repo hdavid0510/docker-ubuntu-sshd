@@ -1,6 +1,8 @@
 pipeline{
 	agent any
-
+	options {
+		parallelsAlwaysFailFast()
+	}
 	environment {
 		IMAGE_NAME="hdavid0510/ubuntu-sshd"
 		REGISTRY_CREDENTIALS=credentials('dockerhub-credential')
