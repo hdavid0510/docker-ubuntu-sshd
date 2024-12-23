@@ -17,9 +17,48 @@ pipeline{
 			}
 		}
 		stage('Build/Push') {
+			parallel {
+				stage('linux/amd64') {
+					steps {
+						echo 'Building linux/amd64'
+						sh 'docker buildx build --platform linux/amd64 -t $IMAGE_NAME:$IMAGE_TAG-amd64 .'
+					}
+				}
+				stage('linux/arm/v7') {
+					steps {
+						echo 'Building linux/arm/v7'
+						sh 'docker buildx build --platform linux/arm/v7 -t $IMAGE_NAME:$IMAGE_TAG-armv7 .'
+					}
+				}
+				stage('linux/arm64') {
+					steps {
+						echo 'Building linux/arm64'
+						sh 'docker buildx build --platform linux/arm64 -t $IMAGE_NAME:$IMAGE_TAG-arm64 .'
+					}
+				}
+				stage('linux/ppc64le') {
+					steps {
+						echo 'Building linux/ppc64le'
+						sh 'docker buildx build --platform linux/ppc64le -t $IMAGE_NAME:$IMAGE_TAG-ppc64le .'
+					}
+				}
+				stage('linux/s390x') {
+					steps {
+						echo 'Building linux/s390x'
+						sh 'docker buildx build --platform linux/s390x -t $IMAGE_NAME:$IMAGE_TAG-s390x .'
+					}
+				}
+				stage('linux/riscv64') {
+					steps {
+						echo 'Building linux/riscv64'
+						sh 'docker buildx build --platform linux/riscv64 -t $IMAGE_NAME:$IMAGE_TAG-riscv64 .'
+					}
+				}
+			}
+		}
+		stage('Push multiarch image') {
 			steps {
-				echo 'Building image and pushing to DockerHub.'
-				sh 'docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64/v8,linux/ppc64le,linux/s390x,linux/riscv64 -t $IMAGE_NAME:$IMAGE_TAG .'
+				sh 'docker buildx build --push --platform linux/amd64,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x,linux/riscv64 -t $IMAGE_NAME:$IMAGE_TAG .'
 			}
 		}
 	}
@@ -29,3 +68,4 @@ pipeline{
 		}
 	}
 }
+
